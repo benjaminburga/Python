@@ -1,0 +1,63 @@
+
+# Prompt the user to input the price of a child's meal, adult's meal, number of children and adults, tax rate, and whether they want to tip.
+print("WELCOME to Project Milestone - Meal Price Calculator \n")
+while True:
+    child_meal=float(input("The price of a child's meal \n"))
+    adult_meal=float(input("The price of an adult's meal \n"))
+    number_children=int(input("The number of children \n"))
+    number_adults=int(input("The number of adults \n"))
+    tax_rate=float(input("The sales tax rate \n"))
+
+    # Prompt the user to input whether they want to give a tip and validate the input
+    question_tip=input("Do you want to tip? press Y or N \n")
+    while question_tip not in ["y", "n"]:
+        question_tip= input("Error  , input just Y or N \n")
+    
+    # If the user wants to give a tip, prompt them to input the amount and validate the input
+    if question_tip.lower()== "y":
+        while True:
+            tip= input("How much do you want to give ")
+            try:
+                tip=float(tip)
+                if tip < 0 :
+                    print("Input a valid number")
+                else:
+                    break
+            except ValueError:
+                ("Error input a valid number")
+            # If the user doesn't want to give a tip, set the tip amount to 0.0
+    else :
+        tip= 0.0
+
+    # Calculate the subtotal, sales tax, total with tip, and change
+    subtotal=child_meal*number_children + adult_meal * number_adults
+    print(f"\nSubtotal: {subtotal:7}")
+    sales_tax=tax_rate*subtotal / 100
+    print(f"Sales Tax:{sales_tax:7.2f}")
+    print(f"Tip : {tip:11}\n          ---------")
+    total=subtotal+sales_tax+tip
+    print(f"Total: {total:11.2f}")
+    while True:
+            amount_payment= input("What is the payment amount?")
+            try:
+                amount_payment=float(amount_payment)
+                if amount_payment < total :
+                    print("Please input a number major that ", total)
+                else:
+                    break
+            except ValueError:
+                ("Error input a valid number")
+    change= amount_payment - total
+    print(f"Change: {change:.2f}")
+
+# Validate whether the user wants to calculate again, and if not, exit the loop.
+    final_question=input("Do you want to calculate again? Press Y or N:  ")
+    while final_question not in ["y","n"]:
+        final_question=input("Error  , input just Y or N ")
+    if final_question.lower() == "n" :
+        print("Thank you for using our program!")
+        break
+    else:
+        print("\n Great\n")
+
+
