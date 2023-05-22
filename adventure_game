@@ -1,0 +1,57 @@
+
+#The code has been improved by adding the sys.exit() function to enable the user to exit the program at any time, a while loop to allow the user to play multiple times without restarting the program, the time.sleep(1) function to delay execution and enhance the user experience, and the option1 and option2 functions to break the code into different scenarios for improved clarity and understanding.
+
+import sys
+import time
+
+print("WELCOME TO ADVENTURE GAME TEXT")
+time.sleep(1)
+
+# Option 1
+def option1():
+    print("\nYou walk out of your room and see a shadow move in the living room. What do you do?")
+    action = input("Do you want to investigate (1) or hide (2)? ")
+    
+    if action == "1":
+        print("\nYou slowly walk towards the living room and see a figure sitting on the couch. It turns around and you see that it's your friend. You let out a sigh of relief.")
+    elif action == "2":
+        print("\nYou quickly run back to your room and lock the door. You hear footsteps approaching but they eventually fade away. You realize that it was just your imagination.")
+
+# Option 2
+def option2():
+    print("\nYou decide to go back to sleep but the scratching noise continues. What do you do?")
+    action = input("Do you want to investigate (1) or ignore it and try to sleep (2)? ")
+    
+    if action == "1":
+        print("\nYou grab your flashlight and walk towards the door. As you open it, a small kitten runs inside your room. You realize that it was the source of the scratching noise.")
+    elif action == "2":
+        print("\nThe scratching noise gets louder and more persistent, making it difficult for you to sleep. You eventually give up and turn on the lights. You see that a tree branch is tapping against the window. You close the curtains and go back to bed.")
+
+# Start game
+while True:
+    print("\nYou are in your room and you hear a noise in the living room. Do you want to go check it out?")
+    action = input("YES or NO? ")
+    
+    if action.lower() == "yes":
+        option1()
+    elif action.lower() == "no":
+        print("\nYou decide to stay in your room when suddenly the noise gets louder and something scratches the door. You have a stick by your side. Do you want to grab it?")
+        action = input("YES or NO? ")
+        
+        if action.lower() == "yes":
+            print("\nYou grab the stick and the scratching stops. You realize that it was just the wind making noise.")
+        elif action.lower() == "no":
+            print("\nThe scratching noise continues and gets louder, making it difficult for you to concentrate. What do you want to do?")
+            action = input("Do you want to investigate (1) or go back to sleep (2)? ")
+            
+            if action == "1":
+                option1()
+            elif action == "2":
+                option2()
+
+    # Ask user if they want to play again
+    play_again = input("\nDo you want to play again? (YES or NO) ")
+    if play_again.lower() == "no":
+        time.sleep(1)
+        print("\nThanks for playing! Goodbye.")
+        sys.exit()
