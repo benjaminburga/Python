@@ -1,0 +1,72 @@
+#Add option for user to play again and guess a new word after completing a game. The word list has also been expanded to increase variety. Also, the maximum number of attempts has been limited to three to keep the game challenging but fair. Finally, a time delay has been included to make the game more attractive and dynamic.
+
+import random
+import time
+
+words = ["java", "php", "ruby", "swift", "python"]
+secret = random.choice(words)
+# initialize number of guesses to 0
+num_guesses = 0
+playing = True
+# set the maximum number of guesses
+max_guesses = 3
+
+print("Welcome to the word guessing game!\n")
+time.sleep(1)
+while playing:
+    guess = input("What is your guess?  " + "_ " * len(secret)+ "\n")
+    # check if the length of the guess is the same as the length of the secret word
+    if len(guess) != len(secret):
+        print(f"Your guess must be {len(secret)} letters long and is a programming language")
+        continue
+    num_guesses += 1
+    
+    # check if the player has exceeded the maximum number of guesses
+    if num_guesses > max_guesses:
+        print(f"You have reached the maximum number of guesses ({max_guesses}).")
+        play_again = input("Do you want to guess the word? (y/n) ").lower()
+        if play_again == "y":
+            guess = input("What is your final guess? ")
+            if guess == secret:
+                print(f"Congratulations! You guessed it in {num_guesses} guesses.")
+            else:
+                print(f"Sorry, the secret word was {secret}.")
+            play_again = input("Do you want to play again? (y/n) ").lower()
+            if play_again == "y":
+                secret = random.choice(words)
+                num_guesses = 0
+                print("\nLet's play again!\n")
+            else:
+                playing = False
+                print("Thanks for playing!")
+        else:
+            playing = False
+            print("Thanks for playing!")
+    else:
+        # initialize an empty string for the hint
+        hint = ""
+        # generate the hint
+        for i in range(len(secret)):
+            if guess[i] == secret[i]:
+                hint += guess[i].upper()
+            elif guess[i] in secret:
+                hint += guess[i].lower()
+            else:
+                hint += "_"
+        print("Hint: " + hint)
+
+        # check if the guess is correct    
+        if guess == secret:
+            print(f"Congratulations! You guessed it in {num_guesses} guesses.")
+        
+            # ask the user if they want to play again
+            play_again = input("Do you want to play again? (y/n) ").lower()
+            time.sleep(1)
+            if play_again == "y":
+                # select a new random programming language and reset variables
+                secret = random.choice(words)
+                num_guesses = 0
+                print("\nLet's play again!\n")
+            else:
+                playing = False 
+                print("Thanks for playing!")
