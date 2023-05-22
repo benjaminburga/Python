@@ -1,0 +1,89 @@
+# Description of Improvements and Implemented Features:
+# Added validations for incorrect user responses, prompting for correct input.
+# If the user tries to add an item that is already in the cart, an alert is displayed and the user is asked if they want to add it again. If affirmative, the item will be duplicated in the cart.
+# After adding each item, the total number of items added so far is displayed.
+# Implemented the functionality for the user to enter desired quantities for each item, and these quantities are taken into account when calculating the total.
+
+import time
+#VARIABLES 
+store=[] # List to store the items in the shopping cart
+prices=[] # List to store the prices of the items
+quantities=[] # Dictionary to store item categories
+ 
+def add_Cart():
+        count= -1
+        while True:
+            try:
+                item =input("What item would you like to add? or write 'DONE' to exit to menu\n")
+                count += 1 
+                if item.lower() == "done":
+                    print(f"YOU HAVE ADDED {count} ITEMS\n")
+                    break
+                #Detect when the item in the store variable is duplicated
+                elif  item  in store:
+                    duplicate=input("This item is already in the cart. Do you want to add it again? (any key /n) ")
+                    if duplicate == "n":
+                            continue                      
+                price= float(input(f"What is the price of {item} : \n"))
+                #Prompt the user for the quantity of the item
+                quantity = int(input(f"What quantity of {item} would you like to add: "))
+                
+                #information is stored in variables
+                store.append(item)
+                prices.append(price)
+                quantities.append(quantity)
+ 
+                print(f"{'-' * 60}\n{item} has been added to the cart [✓].\n{'-' * 60}")
+            except ValueError:
+                print("Invalid input. Please enter a valid price and quantity.")
+
+def show_Cart():
+        print("The contents of the shopping cart are:\n ")
+        for index, (item, price, quantity) in enumerate(zip(store, prices, quantities), start=1):
+            print(f"{index}. {item} - ${price:.2f} - Quantity: {quantity}\n")
+                
+def remove_Cart():
+        delete = input("Which item would you like to remove? \n ")
+        for item, price in zip(store, prices):
+            if item == delete:
+                index = store.index(item)
+                del store[index]
+                del prices[index]
+                print(f"{'-' * 40}\n [✓] {delete} removed\n {'-' * 40}\n")
+                break
+        else:
+            print(f"{'-' * 60}\n ITEM NOT FOUND IN THE CART\n-{'-' * 60}\n")
+
+def compute_total():
+        time.sleep(1)
+        total = sum(price * quantity for price, quantity in zip(prices, quantities))
+        print(f"The total price of the items in the shopping cart is\n{'-' * 15}\n $ {total:.2f}\n{'-' * 15}\n ")
+
+while True :
+    # Presentation
+        print("Please select one of the following:\n")
+        print("1. Add item")
+        print("2. View cart")
+        print("3. Remove item")
+        print("4. Compute total")
+        print("5. Quit")
+
+        selection= int(input(""))
+        if selection == 1:
+              add_Cart()
+        elif selection == 2 :
+              show_Cart()
+        elif selection == 3 :
+              show_Cart()
+              remove_Cart()
+        elif selection == 4:
+              show_Cart()
+              compute_total()
+        elif selection == 5 :
+              time.sleep(1)
+              print("Thank for using our program")
+              break   
+        else:
+              time.sleep(1)
+              print("Plese input number from 1 - 5")
+
